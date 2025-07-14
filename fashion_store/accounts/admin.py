@@ -1,5 +1,4 @@
 from django.contrib import admin
-from .models import AcountPost
-# Register your models here.
+from .models import Customer
 
-admin.site.register(AcountPost)
+admin.site.register(Customer)
