@@ -1,11 +1,26 @@
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{% get_current_language %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
+    <title>{% trans "Acasă" %}</title>
 </head>
 <body>
-    <h1>home</h1>
+    <h1>{% trans "Pagina Principală" %}</h1>
+    <p>{% trans "Bine ai venit pe site-ul nostru de haine!" %}</p>
+
+    <form action="{% url 'set_language' %}" method="post">
+        {% csrf_token %}
+        <label for="language">{% trans "Alege limba:" %}</label>
+        <select name="language" id="language">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% for lang_code, lang_name in LANGUAGES %}
+                <option value="{{ lang_code }}" {% if lang_code == LANGUAGE_CODE %}selected{% endif %}>{{ lang_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="{% trans 'Schimbă limba' %}">
+    </form>
 </body>
 </html>
